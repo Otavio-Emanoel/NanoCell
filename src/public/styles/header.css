@@ -1,0 +1,35 @@
+header {
+    width: 100%;
+    
+    & .header_top {
+        height: 100px;
+        background-color: #281a1a;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & .header-top-left {
+            display: flex;
+            flex-direction: row;
+
+            & .menu_header {
+                color: #fff;
+            }
+    
+            & img {
+                width: 50px;
+                height: 50px;
+    
+                &:hover {
+                    transform: scale(1.5);
+                }
+            }
+        }
+
+
+        & input {
+            width: 80%;
+            max-width: 600px;
+        }
+    }
+}

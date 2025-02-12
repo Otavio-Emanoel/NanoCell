@@ -1,0 +1,20 @@
+{
+  "name": "nanocell",
+  "version": "1.0.0",
+  "description": "Site de venda de Smartphones do Nano",
+  "main": "app.js",
+  "scripts": {
+    "test": "run"
+  },
+  "keywords": [
+    "Venda",
+    "Smartphone",
+    "Nano"
+  ],
+  "author": "Otavio e Samuel",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

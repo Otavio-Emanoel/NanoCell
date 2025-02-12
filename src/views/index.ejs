@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/globals.css">
+    <title>NanoCell</title>
+</head>
+
+<body>
+    <% produtos.forEach((produto) => { %>
+        <%= produto.nome %>
+        <%= produto.marca %>
+        R$ <%= produto.preco %>,00
+        <br>
+
+    <% }) %>
+
+    <header>
+        <div class="header_top">
+            <div class="header-top-left">
+                <div class="menu_header">
+                    <strong class="fa fa-bars"></strong>    
+                </div>
+                <img src="images/logo.png" alt="" id="logo">
+            </div>
+            <input type="text" name="" id="search-input">
+            <div id="carrinho_menu"><strong class="fa fa-shopping-cart"></strong></div>
+        </div>
+    </header>
+</body>
+
+</html>
