@@ -1,25 +1,40 @@
 header {
     width: 100%;
-    
+    display: flex;
+    flex-direction: column;
+
+
     & .header_top {
         height: 100px;
         background-color: #281a1a;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        height: 70px;
 
         & .header-top-left {
             display: flex;
             flex-direction: row;
-
+            align-items: center;
+            width: inherit;
+            gap: 20px;
+            padding: 0 0 0 20px;
+            
             & .menu_header {
                 color: #fff;
+                
+                & .fa-bars {
+                    cursor: pointer;
+                    font-size: 2rem;
+                }
             }
-    
+
             & img {
                 width: 50px;
                 height: 50px;
-    
+                -webkit-user-drag: none;
+                user-select: none;
+
                 &:hover {
                     transform: scale(1.5);
                 }
@@ -27,9 +42,39 @@ header {
         }
 
 
-        & input {
+        & #search-input {
             width: 80%;
             max-width: 600px;
+            margin: 5px 10px;
+            border: none;
+            border-radius: 1.5rem;
+            font-size: 1.3rem;
+            padding: 0 0 0 1.2%;
+            text-transform: uppercase;
+            
+            &:focus {
+                outline: none;
+            }
         }
+
+        & #carrinho_menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: inherit;
+            gap: 20px;
+            padding: 0 20px 0 0;
+
+            & strong {
+                color: #f1f1f1;
+                font-size: 2rem;
+                cursor: pointer;
+            }
+        }
+    }
+    & .header_bottom {
+        background: linear-gradient(to bottom, #281a1a, #281a1aee);
+        padding: 5px;
+        color: #f1f1f1;
     }
 }

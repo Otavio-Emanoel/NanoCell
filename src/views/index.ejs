@@ -11,26 +11,40 @@
 </head>
 
 <body>
-    <% produtos.forEach((produto) => { %>
-        <%= produto.nome %>
-        <%= produto.marca %>
-        R$ <%= produto.preco %>,00
-        <br>
-
-    <% }) %>
-
     <header>
         <div class="header_top">
             <div class="header-top-left">
                 <div class="menu_header">
-                    <strong class="fa fa-bars"></strong>    
+                    <strong class="fa fa-bars"></strong>
                 </div>
                 <img src="images/logo.png" alt="" id="logo">
             </div>
             <input type="text" name="" id="search-input">
             <div id="carrinho_menu"><strong class="fa fa-shopping-cart"></strong></div>
         </div>
+
+        <div class="header_bottom">
+            <p>Criado por Otavio Emanoel e Samuel Santana</p>
+        </div>
     </header>
+    <main>
+        <div class="main-left-menu">
+            
+        </div>
+        <div class="main-content">
+            <% produtos.forEach((produto)=> { %>
+                <div class="card">
+                    <img src="<%= produto.imagem %>" class="product-photo">
+                    <h2 class="product-title"><%= produto.nome %></h2>
+                    <div class="product-description">
+                        <h3 class="product-price">R$ <%= produto.preco %>,00</h3>
+                        <p class="product-brand"><%= produto.marca %></p>
+                        <button class="product-buy">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </main>
 </body>
 
 </html>
