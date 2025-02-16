@@ -6,7 +6,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body {
-    background-color: #6d6d6d;
+    height: 100dvh;
+    overflow: hidden;
 }

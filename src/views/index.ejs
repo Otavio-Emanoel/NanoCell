@@ -23,22 +23,46 @@
             <div id="carrinho_menu"><strong class="fa fa-shopping-cart"></strong></div>
         </div>
 
-        <div class="header_bottom">
+        <!-- <div class="header_bottom">
             <p>Criado por Otavio Emanoel e Samuel Santana</p>
-        </div>
+        </div> -->
     </header>
     <main>
         <div class="main-left-menu">
-            
+            <nav>
+                <ul>
+                    <li><h3>Marcas</h3></li>
+                    <li class="brand"><a href=""><strong class="fa fa-apple"></strong> Apple</a></li>
+                    <li class="brand"><a href="">Motorola</a></li>
+                    <li class="brand"><a href="">Samsung</a></li>
+                    <li class="brand"><a href="">Xiaomi</a></li>
+                    <li><h3>Preço</h3></li>
+                    <li class="price"><a href="">Até R$1.000,00</a></li>
+                    <li class="price"><a href="">Até R$2.000,00</a></li>
+                    <li class="price"><a href="">Até R$5.000,00</a></li>
+                    <li class="price"><a href="">Até R$10.000,00</a></li>
+                    <li><h3>Armazenamento</h3></li>
+                    <li class="storage"><a href="">32 GB</a></li>
+                    <li class="storage"><a href="">64 GB</a></li>
+                    <li class="storage"><a href="">128 GB</a></li>
+                    <li class="storage"><a href="">256 GB</a></li>
+                    <li class="storage"><a href="">512 GB</a></li>
+                    <li class="storage"><a href="">1 TB</a></li>
+                </ul>
+            </nav>
         </div>
         <div class="main-content">
             <% produtos.forEach((produto)=> { %>
                 <div class="card">
                     <img src="<%= produto.imagem %>" class="product-photo">
-                    <h2 class="product-title"><%= produto.nome %></h2>
+                    <h2 class="product-title">
+                        <%= produto.nome %>
+                    </h2>
                     <div class="product-description">
                         <h3 class="product-price">R$ <%= produto.preco %>,00</h3>
-                        <p class="product-brand"><%= produto.marca %></p>
+                        <p class="product-brand">
+                            <%= produto.marca %>
+                        </p>
                         <button class="product-buy">Adicionar ao Carrinho</button>
                     </div>
                 </div>

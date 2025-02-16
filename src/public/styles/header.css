@@ -1,80 +1,99 @@
 header {
     width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(40, 26, 26, 0.9);
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
+    z-index: 1000;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 
 
     & .header_top {
-        height: 100px;
-        background-color: #281a1a;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
         height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
 
         & .header-top-left {
             display: flex;
-            flex-direction: row;
             align-items: center;
-            width: inherit;
-            gap: 20px;
-            padding: 0 0 0 20px;
-            
+            gap: 15px;
+
             & .menu_header {
                 color: #fff;
-                
+                font-size: 2rem;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+
                 & .fa-bars {
                     cursor: pointer;
                     font-size: 2rem;
                 }
             }
 
-            & img {
-                width: 50px;
-                height: 50px;
-                -webkit-user-drag: none;
+            & #logo {
+                width: 55px;
+                height: 55px;
                 user-select: none;
+                transition: transform 0.3s ease;
 
                 &:hover {
-                    transform: scale(1.5);
+                    transform: scale(1.1) rotate(5deg);
                 }
             }
         }
 
 
         & #search-input {
-            width: 80%;
+            flex: 1;
             max-width: 600px;
-            margin: 5px 10px;
+            height: 40px;
             border: none;
-            border-radius: 1.5rem;
-            font-size: 1.3rem;
-            padding: 0 0 0 1.2%;
-            text-transform: uppercase;
-            
+            border-radius: 20px;
+            font-size: 1rem;
+            padding: 0 15px;
+            transition: all 0.3s ease;
+            background: #1c1c1c;
+            color: #fff;
+            outline: none;
+
             &:focus {
-                outline: none;
+                background: #333;
+                box-shadow: 0px 0px 5px #4985ff;
             }
         }
 
         & #carrinho_menu {
             display: flex;
-            flex-direction: row;
             align-items: center;
-            width: inherit;
-            gap: 20px;
-            padding: 0 20px 0 0;
 
             & strong {
                 color: #f1f1f1;
                 font-size: 2rem;
                 cursor: pointer;
+                transition: transform 0.3s ease, color 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.2);
+                    color: #4985ff;
+                }
             }
         }
     }
+
     & .header_bottom {
+        text-align: center;
         background: linear-gradient(to bottom, #281a1a, #281a1aee);
         padding: 5px;
         color: #f1f1f1;
+        font-size: 0.9rem;
     }
 }

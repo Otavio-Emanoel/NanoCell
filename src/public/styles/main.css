@@ -1,0 +1,183 @@
+main {
+    width: 100%;
+    height: calc(100dvh - 100px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 80px;
+    gap: 25px;
+
+    & .main-left-menu {
+        background-color: #121212;
+        border-radius: 10px;
+        margin-top: 5px;
+        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+        width: 20%;
+        max-width: 320px;
+        min-width: 250px;
+        height: 85dvh;
+        max-height: 900px;
+        overflow-y: auto;
+        padding: 20px;
+
+        scrollbar-width: thin;
+        scrollbar-color: #333 #121212;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        & nav {
+            & ul {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding-left: 0;
+
+                & li {
+                    list-style: none;
+                    width: 100%;
+
+                    & h3 {
+                        font-weight: 900;
+                        font-size: 1.4rem;
+                        color: #f0f0f0;
+                        margin-bottom: 5px;
+                    }
+
+                    & a {
+                        text-decoration: none;
+                        color: #f5f5f5;
+                        font-size: 1.1rem;
+                        padding: 8px 12px;
+                        display: block;
+                        border-radius: 5px;
+                        transition: background 0.3s ease, color 0.3s ease;
+
+                        &:hover {
+                            background: #4985ff;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & .main-content {
+        flex: 1;
+        overflow-y: auto;
+        margin: 5px 10px 0 0;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+        background-color: #131313;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+
+        max-width: 1200px;
+        width: 95%;
+        margin: 20px auto;
+
+        scrollbar-width: thin;
+        scrollbar-color: #333 #121212;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        & .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 320px;
+            width: 100%;
+            max-width: 220px;
+            border-radius: 10px;
+            padding: 10px;
+            gap: 8px;
+            background-color: #1c1c1c;
+            box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.6);
+
+                & img {
+                    transform: scale(1.1);
+                }
+            }
+
+            & img {
+                width: 180px;
+                height: 180px;
+                object-fit: cover;
+                border-radius: 10px;
+                transition: transform 0.2s ease;
+
+
+            }
+
+            & h2 {
+                color: #f0f0f0;
+                font-size: 1.3rem;
+                font-weight: 700;
+            }
+
+            & .product-description {
+                width: 100%;
+                text-align: center;
+
+                & h3 {
+                    font-size: 1rem;
+                    color: #d1d1d1;
+                }
+
+                & p {
+                    font-size: 0.9rem;
+                    color: #bdbdbd;
+
+                }
+
+                & .product-buy {
+                    width: 100%;
+                    height: 40px;
+                    margin: 8px 0;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #4985ff, #1e3cff);
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    border: none;
+                    border-radius: 5px;
+                    transition: background 0.3s ease, transform 0.2s ease;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: linear-gradient(135deg, #1e3cff, #4985ff);
+                        transform: scale(1.05);
+                    }
+
+                }
+            }
+        }
+    }
+}
