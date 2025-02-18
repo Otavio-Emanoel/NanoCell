@@ -31,17 +31,23 @@
         <div class="main-left-menu">
             <nav>
                 <ul>
-                    <li><h3>Marcas</h3></li>
+                    <li>
+                        <h3>Marcas</h3>
+                    </li>
                     <li class="brand"><a href=""><strong class="fa fa-apple"></strong> Apple</a></li>
                     <li class="brand"><a href="">Motorola</a></li>
                     <li class="brand"><a href="">Samsung</a></li>
                     <li class="brand"><a href="">Xiaomi</a></li>
-                    <li><h3>Preço</h3></li>
+                    <li>
+                        <h3>Preço</h3>
+                    </li>
                     <li class="price"><a href="">Até R$1.000,00</a></li>
                     <li class="price"><a href="">Até R$2.000,00</a></li>
                     <li class="price"><a href="">Até R$5.000,00</a></li>
                     <li class="price"><a href="">Até R$10.000,00</a></li>
-                    <li><h3>Armazenamento</h3></li>
+                    <li>
+                        <h3>Armazenamento</h3>
+                    </li>
                     <li class="storage"><a href="">32 GB</a></li>
                     <li class="storage"><a href="">64 GB</a></li>
                     <li class="storage"><a href="">128 GB</a></li>
@@ -63,12 +69,120 @@
                         <p class="product-brand">
                             <%= produto.marca %>
                         </p>
-                        <button class="product-buy">Adicionar ao Carrinho</button>
+                        <button class="product-buy"
+                            data-produto='{"nome": "<%= produto.nome %>", "marca": "<%= produto.marca %>", "imagem": "<%= produto.imagem %>", "preco": <%= produto.preco %>}'
+                            onclick="adicionarCarrinho(this)">
+                            Adicionar ao Carrinho
+                        </button>
+
                     </div>
                 </div>
                 <% }) %>
         </div>
     </main>
+    <div id="modal-overlay" class="hidden">
+        <div id="cart-modal">
+            <h2>Seu Carrinho</h2>
+            <ul id="cart-items">
+                <% carrinho.forEach((produto, index)=> { %>
+                    <% if(produto == null) { %>
+                        <p>Carrinho vazio</p>
+                        <% } %>
+                            <li>
+                                <img src="<%= produto.imagem %>" alt="<%= produto.nome %>" width="50">
+                                <span>
+                                    <%= produto.nome %> - R$ <%= produto.preco %>
+                                </span>
+                                <button class="remove-item" onclick="removerDoCarrinho(<%= index %>)">❌</button>
+                            </li>
+                            <% }) %>
+            </ul>
+            <button id="close-cart">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        var carrinho = []
+        function adicionarCarrinho(button) {
+            const produto = JSON.parse(button.getAttribute("data-produto"));
+
+            // Adiciona ao carrinho via fetch
+            fetch("/adicionar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(produto),
+            }).then(() => {
+                // Atualiza a página para refletir o carrinho atualizado
+                atualizarCarrinho();
+
+                // Agora faz a animação do produto indo para o carrinho
+                const imgProduto = button.closest(".card").querySelector(".product-photo");
+                const imgClone = imgProduto.cloneNode(true);
+
+                // Posição inicial (mesma da imagem do produto)
+                const rect = imgProduto.getBoundingClientRect();
+                imgClone.style.position = "fixed";
+                imgClone.style.top = `${rect.top}px`;
+                imgClone.style.left = `${rect.left}px`;
+                imgClone.style.width = "50px";
+                imgClone.style.zIndex = "1000";
+                imgClone.style.transition = "all 0.8s ease-in-out";
+                document.body.appendChild(imgClone);
+
+                // Posição final (no carrinho)
+                const carrinhoIcon = document.getElementById("carrinho_menu");
+                const carrinhoRect = carrinhoIcon.getBoundingClientRect();
+
+                setTimeout(() => {
+                    imgClone.style.top = `${carrinhoRect.top + 10}px`;
+                    imgClone.style.left = `${carrinhoRect.left + 10}px`;
+                    imgClone.style.opacity = "0.2";
+                    imgClone.style.transform = "scale(0.5)";
+                }, 100);
+
+                // Remove o clone depois da animação
+                setTimeout(() => {
+                    imgClone.remove();
+                }, 900);
+            });
+        }
+
+        // Atualiza a lista do carrinho sem precisar recarregar a página
+        function atualizarCarrinho() {
+            fetch("/")
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
+                    document.getElementById("cart-items").innerHTML = doc.getElementById("cart-items").innerHTML;
+                });
+        }
+
+
+
+        document.getElementById("carrinho_menu").addEventListener("click", function () {
+            document.getElementById("modal-overlay").classList.remove("hidden");
+        });
+
+        document.getElementById("close-cart").addEventListener("click", function () {
+            document.getElementById("modal-overlay").classList.add("hidden");
+        });
+
+        // Fechar ao clicar fora do modal
+        document.getElementById("modal-overlay").addEventListener("click", function (event) {
+            if (event.target === this) {
+                this.classList.add("hidden");
+            }
+        });
+
+        // Função para remover um item do carrinho
+        function removerDoCarrinho(index) {
+            fetch(`/remover/${index}`, { method: "POST" })
+                .then(() => atualizarCarrinho()); // Atualiza apenas o carrinho sem recarregar
+        }
+    </script>
 </body>
 
 </html>
