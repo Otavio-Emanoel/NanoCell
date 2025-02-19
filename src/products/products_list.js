@@ -89,6 +89,7 @@ const produtos = [
         preco: 8000,
         imagem: "https://cdn.awsli.com.br/800x800/1271/1271561/produto/274135612/smartphone-sony-xperia-1-v-256gb--1--wd52o29hjw.jpg"
     }
+    
 ]
 
 module.exports = produtos

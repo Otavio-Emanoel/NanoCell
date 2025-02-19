@@ -22,10 +22,13 @@ app.post("/remover/:index", (req, res) => {
 });
 
 
+
 app.get('/', (req, res) => {
+    const precoTotal = carrinho.reduce((total, produto) => total + (produto.preco || 0), 0);
     res.render('index', {
         produtos: produtos,
-        carrinho
+        carrinho,
+        precoTotal: precoTotal
     })
 })
 

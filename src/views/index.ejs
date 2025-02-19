@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/globals.css">
+    <link rel="shortcut icon" href="images/Logo.ico" type="image/x-icon">
     <title>NanoCell</title>
 </head>
 
@@ -74,7 +75,6 @@
                             onclick="adicionarCarrinho(this)">
                             Adicionar ao Carrinho
                         </button>
-
                     </div>
                 </div>
                 <% }) %>
@@ -84,22 +84,25 @@
         <div id="cart-modal">
             <h2>Seu Carrinho</h2>
             <ul id="cart-items">
-                <% carrinho.forEach((produto, index)=> { %>
-                    <% if(produto == null) { %>
-                        <p>Carrinho vazio</p>
-                        <% } %>
-                            <li>
-                                <img src="<%= produto.imagem %>" alt="<%= produto.nome %>" width="50">
-                                <span>
-                                    <%= produto.nome %> - R$ <%= produto.preco %>
-                                </span>
-                                <button class="remove-item" onclick="removerDoCarrinho(<%= index %>)">❌</button>
-                            </li>
-                            <% }) %>
+                <% if (carrinho.length === 0) { %>
+                    <p>Carrinho vazio</p>
+                <% } else { %>
+                    <% carrinho.forEach((produto, index) => { %>
+                        <li>
+                            <img src="<%= produto.imagem %>" alt="<%= produto.nome %>" width="50">
+                            <span>
+                                <%= produto.nome %> - R$ <%= produto.preco %>
+                            </span>
+                            <button class="remove-item" onclick="removerDoCarrinho(<%= index %>)">❌</button>
+                        </li>
+                    <% }); %>
+                <% } %>
             </ul>
+            <p>Preço total: R$ <%= precoTotal %></p>
             <button id="close-cart">Fechar</button>
         </div>
     </div>
+    
 
     <script>
         var carrinho = []
@@ -114,14 +117,11 @@
                 },
                 body: JSON.stringify(produto),
             }).then(() => {
-                // Atualiza a página para refletir o carrinho atualizado
                 atualizarCarrinho();
-
-                // Agora faz a animação do produto indo para o carrinho
+                
                 const imgProduto = button.closest(".card").querySelector(".product-photo");
                 const imgClone = imgProduto.cloneNode(true);
 
-                // Posição inicial (mesma da imagem do produto)
                 const rect = imgProduto.getBoundingClientRect();
                 imgClone.style.position = "fixed";
                 imgClone.style.top = `${rect.top}px`;
@@ -131,7 +131,6 @@
                 imgClone.style.transition = "all 0.8s ease-in-out";
                 document.body.appendChild(imgClone);
 
-                // Posição final (no carrinho)
                 const carrinhoIcon = document.getElementById("carrinho_menu");
                 const carrinhoRect = carrinhoIcon.getBoundingClientRect();
 
@@ -142,14 +141,12 @@
                     imgClone.style.transform = "scale(0.5)";
                 }, 100);
 
-                // Remove o clone depois da animação
                 setTimeout(() => {
                     imgClone.remove();
                 }, 900);
             });
         }
 
-        // Atualiza a lista do carrinho sem precisar recarregar a página
         function atualizarCarrinho() {
             fetch("/")
                 .then(response => response.text())
@@ -157,6 +154,8 @@
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, "text/html");
                     document.getElementById("cart-items").innerHTML = doc.getElementById("cart-items").innerHTML;
+                    const novoPrecoTotal = doc.querySelector("#cart-modal p").textContent.replace("Preço total: R$ ", "");
+                document.getElementById("cart-modal").querySelector("p").textContent = `Preço total: R$ ${novoPrecoTotal}`;
                 });
         }
 
@@ -170,17 +169,15 @@
             document.getElementById("modal-overlay").classList.add("hidden");
         });
 
-        // Fechar ao clicar fora do modal
         document.getElementById("modal-overlay").addEventListener("click", function (event) {
             if (event.target === this) {
                 this.classList.add("hidden");
             }
         });
 
-        // Função para remover um item do carrinho
         function removerDoCarrinho(index) {
             fetch(`/remover/${index}`, { method: "POST" })
-                .then(() => atualizarCarrinho()); // Atualiza apenas o carrinho sem recarregar
+                .then(() => atualizarCarrinho());
         }
     </script>
 </body>
